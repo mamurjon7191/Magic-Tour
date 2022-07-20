@@ -1,4 +1,10 @@
-// require("./config/db");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv").config();
+
+mongoose.connect(process.env.DATABASE_URL, () => {
+  console.log("DB is connected");
+});
+
 const fs = require("fs");
 const Tour = require("../model/tourModel");
 const Review = require("../model/reviewModel");
@@ -16,9 +22,9 @@ const reviewData = JSON.parse(
 
 const addData = async (req, res, next) => {
   try {
-    const tour = await Tour.create(tourData);
+    // const tour = await Tour.create(tourData);
     const user = await User.create(userData);
-    const review = await Review.create(reviewData);
+    // const review = await Review.create(reviewData);
     console.log("Fayllar yozildi");
   } catch (err) {
     console.log(err.message);
@@ -35,3 +41,5 @@ const deleteData = async (req, res, next) => {
     console.log(err.message);
   }
 };
+
+addData();

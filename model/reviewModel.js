@@ -2,12 +2,24 @@ const mongoose = require("mongoose");
 
 const reviewSchema = new mongoose.Schema({
   review: {
-    type: Number,
+    type: String,
     required: [true, "Siz reviewni kiritishingiz kerak!"],
+  },
+  rating: {
+    type: Number,
+    required: [true, "Siz ratingni kiritishingiz kerak!"],
+  },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "users",
+  },
+  tour: {
+    type: mongoose.Schema.ObjectId,
+    ref: "tours",
   },
 });
 
-const Review = mongoose.model("users", reviewSchema);
+const Review = mongoose.model("reviews", reviewSchema);
 
 module.exports = Review;
 

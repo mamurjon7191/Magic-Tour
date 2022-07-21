@@ -18,24 +18,21 @@ const option2 = {
 };
 
 const getAllTours = async (req, res, next) => {
-  // getAll(req, res, next, Tour, option1, option2);
-  const data = await Tour.find().populate({
-    path: "reviews",
-  });
-  res.status(200).json({
-    data: data,
-  });
+  getAll(req, res, next, Tour, option1, option2);
 };
 
 const getOneTour = (req, res, next) => {
   getOne(req, res, next, Tour, option1, option2);
 };
+
 const addTour = (req, res, next) => {
   addOne(req, res, next, Tour);
 };
+
 const updateTour = (req, res, next) => {
   updateOne(req, res, next, Tour);
 };
+
 const deleteTour = (req, res, next) => {
   deletaOne(req, res, next, Tour);
 };

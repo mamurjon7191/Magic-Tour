@@ -8,11 +8,16 @@ const {
   deletaOne,
 } = require("./handlerController");
 
+const option1 = {
+  path: "reviews",
+  select: "name",
+};
+
 const getAllUsers = (req, res, next) => {
-  getAll(req, res, next, User);
+  getAll(req, res, next, User, option1);
 };
 const getOneUser = (req, res, next) => {
-  getOne(req, res, next, User);
+  getOne(req, res, next, User, option1);
 };
 const addUser = (req, res, next) => {
   addOne(req, res, next, User);

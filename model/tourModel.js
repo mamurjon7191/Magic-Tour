@@ -86,6 +86,12 @@ const tourSchema = new mongoose.Schema({
   ],
 });
 
+tourSchema.virtual("reviews", {
+  ref: "reviews", // collection nomi
+  localField: "_id", // ozini id sini olib ketib
+  foreignField: "tour", // tour fieldi bilan tekshiradi
+});
+
 const Tour = mongoose.model("tours", tourSchema);
 
 module.exports = Tour;

@@ -4,7 +4,6 @@ const featureApi = require("../utility/featureApi");
 
 const responseFunc = (res, statusCode, data) => {
   if (Array.isArray(data)) {
-    console.log(1);
     res.status(statusCode).json({
       status: "succes",
       data: data.length,
@@ -18,25 +17,41 @@ const responseFunc = (res, statusCode, data) => {
   }
 };
 
-const getAll = catchErrorAsync(async (req, res, next, Model) => {
-  let data = new featureApi(req.query, Model)
-    .filter()
-    .sort()
-    .field()
-    .pagination();
+const getAll = catchErrorAsync(
+  async (req, res, next, Model, option1, option2) => {
+    let data = new featureApi(req.query, Model)
+      .filter()
+      .sort()
+      .field()
+      .pagination();
+    if (option2) {
+      data = await data.model.populate(option1).populate(option2);
+      console.log(option2);
+    } else if (option1) {
+      data = await data.model.populate(option1);
+    } else {
+      data = await data.model;
+    }
 
-  data = await data.model;
-  console.log(data.length);
-  res.status(200).json({
-    status: "success",
-    data: data.length,
-    data: data,
-  });
-});
-const getOne = catchErrorAsync(async (req, res, next, Model) => {
-  const data = await Model.findById(req.params.id);
-  responseFunc(res, 200, data);
-});
+    console.log(data.length);
+
+    responseFunc(res, 200, data);
+  }
+);
+const getOne = catchErrorAsync(
+  async (req, res, next, Model, option1, option2) => {
+    if (option2) {
+      data = await Model.findById(req.params.id)
+        .populate(option1)
+        .populate(option2);
+    } else if (option1) {
+      data = await Model.findById(req.params.id).populate(option1);
+    } else {
+      data = await Model.findById(req.params.id);
+    }
+    responseFunc(res, 200, data);
+  }
+);
 const addOne = catchErrorAsync(async (req, res, next, Model) => {
   const data = await Model.create(req.body);
   responseFunc(res, 201, data);

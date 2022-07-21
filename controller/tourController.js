@@ -9,11 +9,26 @@ const {
   deletaOne,
 } = require("./handlerController");
 
-const getAllTours = (req, res, next) => {
-  getAll(req, res, next, Tour);
+const option1 = {
+  path: "guides",
+  select: "name",
 };
+const option2 = {
+  path: "reviews",
+};
+
+const getAllTours = async (req, res, next) => {
+  // getAll(req, res, next, Tour, option1, option2);
+  const data = await Tour.find().populate({
+    path: "reviews",
+  });
+  res.status(200).json({
+    data: data,
+  });
+};
+
 const getOneTour = (req, res, next) => {
-  getOne(req, res, next, Tour);
+  getOne(req, res, next, Tour, option1, option2);
 };
 const addTour = (req, res, next) => {
   addOne(req, res, next, Tour);

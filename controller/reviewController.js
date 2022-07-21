@@ -8,11 +8,20 @@ const {
   deletaOne,
 } = require("./handlerController");
 
+const option1 = {
+  path: "tour",
+  select: "name",
+};
+const option2 = {
+  path: "user",
+  select: "name",
+};
+
 const getAllReviews = (req, res, next) => {
-  getAll(req, res, next, Review);
+  getAll(req, res, next, Review, option1, option2);
 };
 const getOneReview = (req, res, next) => {
-  getOne(req, res, next, Review);
+  getOne(req, res, next, Review, option1, option2);
 };
 const addReview = (req, res, next) => {
   addOne(req, res, next, Review);

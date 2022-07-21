@@ -49,7 +49,7 @@ class featureApi {
   pagination() {
     if (this.queryUser.page) {
       const page = this.queryUser.page || 1;
-      const limit = this.queryUser.limit || 10;
+      const limit = this.queryUser.limit || 5;
       this.model = this.model.skip((page - 1) * limit).limit(limit);
     }
     return this;

@@ -26,7 +26,7 @@ const getAll = catchErrorAsync(async (req, res, next, Model) => {
     .pagination();
 
   data = await data.model;
-
+  console.log(data.length);
   res.status(200).json({
     status: "success",
     data: data.length,
